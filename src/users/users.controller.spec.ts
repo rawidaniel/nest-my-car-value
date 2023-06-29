@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
+import exp from 'constants';
 
 let controller: UsersController;
 let fakeUsersService: Partial<UsersService>;
@@ -83,6 +84,8 @@ describe('UsersController', () => {
       { email: 'test@test.com', password: '12345' },
       session,
     );
+    expect(user).toBeDefined();
+    expect(session.userId).toBe(user.id);
   });
 
   // it('signup method return user with provided email and password', async () => {
