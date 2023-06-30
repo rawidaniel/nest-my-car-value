@@ -4,7 +4,6 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
-import exp from 'constants';
 
 let controller: UsersController;
 let fakeUsersService: Partial<UsersService>;
