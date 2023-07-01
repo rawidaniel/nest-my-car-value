@@ -27,7 +27,7 @@ import { User } from './user.entity';
 
 @Controller('auth')
 @Serialize(UserDto)
-// @UseInterceptors(CurrentUserInterceptor)
+// @UseInterceptors(CurrentUserInterceptor
 export class UsersController {
   constructor(
     private usersService: UsersService,
@@ -93,5 +93,12 @@ export class UsersController {
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);
+  }
+
+  @Get('/filed')
+  getColors(@Query() param: any) {
+    console.log('helloooooo');
+    console.log(param.filed);
+    return param.filed.split(',');
   }
 }

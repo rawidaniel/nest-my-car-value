@@ -5,16 +5,16 @@ const cookieSession = require('cookie-session');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(
-    cookieSession({
-      keys: ['nest-my-car-value'],
-    }),
-  );
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true, // remove all the properties that are not in the DTO
-    }),
-  );
+  // app.use(
+  //   cookieSession({
+  //     keys: ['nest-my-car-value'],
+  //   }),
+  // );
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true, // remove all the properties that are not in the DTO
+  //   }),
+  // );
   await app.listen(3000);
 }
 bootstrap();
