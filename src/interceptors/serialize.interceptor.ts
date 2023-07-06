@@ -26,6 +26,7 @@ export class SerializeInterceptor implements NestInterceptor {
       map((data: any) => {
         // Run something before the response is sent out
         // console.log('I am running before response is sent out', data);
+        // console.log("data", data)
         return plainToInstance(this.dto, data, {
           excludeExtraneousValues: true, // remove any extra properties that are not in the DTO
         });

@@ -13,6 +13,7 @@ import {
   UseGuards,
   UseInterceptors,
   ClassSerializerInterceptor,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UpdateUserDto } from './dtos/updateUser.dto';
@@ -91,7 +92,14 @@ export class UsersController {
   }
 
   @Patch('/:id')
-  updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
+  updateUser(
+    @Param('id') id: string,
+    @Body() body: UpdateUserDto,
+    @CurrentUser() user: User,
+  ) {
+    if (user.admin !== true) {
+      throw new UnauthorizedException('only admin can update user');
+    }
     return this.usersService.update(parseInt(id), body);
   }
 
