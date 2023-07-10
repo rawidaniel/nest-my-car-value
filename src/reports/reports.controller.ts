@@ -7,16 +7,17 @@ import {
   Param,
   Patch,
   Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { ReportsService } from './reports.service';
 import { CreateReportDto } from './dtos/createReport.dto';
-import { AuthGuard } from 'src/users/guards/auth.guard';
-import { CurrentUser } from 'src/users/decorators/currentUser.decorator';
-import { User } from 'src/users/user.entity';
+import { AuthGuard } from '../users/guards/auth.guard';
+import { CurrentUser } from '../users/decorators/currentUser.decorator';
+import { User } from '../users/user.entity';
 import { Serialize } from '../interceptors/serialize.interceptor';
 import { ReportDto } from './dtos/report.dto';
 import { ApproveReportDto } from './dtos/approveReport.dto';
-import { AdminGuard } from 'src/users/guards/admin.guard';
+import { AdminGuard } from '../users/guards/admin.guard';
 import { GetEstimateDto } from './dtos/getEstimate.dto';
 
 @Controller('reports')
@@ -45,6 +46,10 @@ export class ReportsController {
   @Get('/:id')
   @Serialize(ReportDto)
   async getReport(@Param('id') id: string) {
-    return this.reportsService.findOne(parseInt(id));
+    const report = await this.reportsService.findOne(parseInt(id));
+    if (!report) {
+      throw new NotFoundException('report not found');
+    }
+    return report;
   }
 }
