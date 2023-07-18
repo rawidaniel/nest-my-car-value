@@ -19,7 +19,11 @@ import { ReportDto } from './dtos/report.dto';
 import { ApproveReportDto } from './dtos/approveReport.dto';
 import { AdminGuard } from '../users/guards/admin.guard';
 import { GetEstimateDto } from './dtos/getEstimate.dto';
+import { ApiCookieAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Report')
+@ApiCookieAuth()
+@UseGuards(AuthGuard)
 @Controller('reports')
 export class ReportsController {
   constructor(private reportsService: ReportsService) {}
@@ -31,7 +35,6 @@ export class ReportsController {
 
   @Post()
   @Serialize(ReportDto)
-  @UseGuards(AuthGuard)
   create(@Body() body: CreateReportDto, @CurrentUser() user: User) {
     return this.reportsService.create(body, user);
   }
