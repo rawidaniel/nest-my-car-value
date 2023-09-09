@@ -17,7 +17,7 @@ describe('Authentication system', () => {
   });
 
   it('handle signup request', () => {
-    const body = { email: 'test1@test.com', password: '12345' };
+    const body = { email: 'test@test.com', password: '12345' };
     return request(app.getHttpServer())
       .post('/auth/signup')
       .send(body)
@@ -36,6 +36,7 @@ describe('Authentication system', () => {
       .post('/auth/signup')
       .send(data);
     const cookie = res.get('Set-Cookie');
+    console.log("print cookie",cookie)
 
     const { body } = await request(app.getHttpServer())
       .get('/auth/whoami')
